@@ -90,7 +90,7 @@
     }
 
     .brand h1{
-      font-size: 16px;
+      font-size: 14px;
       margin:0;
       font-weight: 700;
     }
@@ -168,7 +168,7 @@
 
     h2{
       margin: 14px 0 10px;
-      font-size: 40px;
+      font-size: 32px;
       line-height: 1.07;
       letter-spacing: -0.6px;
       position:relative;
@@ -190,6 +190,7 @@
       margin-top: 18px;
       position:relative;
       z-index:1;
+      flex-direction: column;
     }
 
     .btn{
@@ -205,19 +206,61 @@
       transition: transform .15s ease, background .15s ease, border-color .15s ease;
       user-select:none;
       cursor:pointer;
+      width: 100%; /* full-width buttons on mobile */
+      justify-content: center;
+      position: relative;
     }
+    
     .btn:hover{ transform: translateY(-1px); }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 3px;
+    }
+    
+    a:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
 
     .btn-primary{
       background: linear-gradient(135deg, rgba(106,13,173,0.92), rgba(47,107,255,0.82));
       border-color: rgba(255,255,255,0.20);
     }
+    
     .btn-secondary{
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
+      background: rgba(255,255,255,0.04); /* was 0.06 - make it more subtle */
+      color: var(--muted); /* was var(--text) - make it less prominent */
+      border-color: rgba(255,255,255,0.10); /* was 0.14 - softer border */
     }
     .btn-secondary:hover{
-      background: rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border-color: rgba(255,255,255,0.16);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      width: 14px;
+      height: 14px;
+      margin-top: -7px;
+      border: 2px solid currentColor;
+      border-right-color: transparent;
+      border-radius: 50%;
+      opacity: 0;
+      animation: spin 0.6s linear infinite;
+    }
+    
+    .btn:active::after {
+      opacity: 0.5;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .mini{
@@ -226,6 +269,18 @@
       margin-top: 12px;
       position:relative;
       z-index:1;
+    }
+
+    .mini a {
+      color: var(--teal); /* or var(--blue) */
+      text-decoration: underline;
+      text-decoration-color: rgba(47,230,197,0.35);
+      transition: color .15s ease, text-decoration-color .15s ease;
+    }
+    
+    .mini a:hover {
+      color: #FFF;
+      text-decoration-color: var(--teal);
     }
 
     .hero-side{
@@ -316,7 +371,15 @@
       justify-content:space-between;
       gap:10px;
     }
-    footer a{ color: var(--muted); }
+    footer a{ 
+      color: var(--muted); 
+      text-decoration: none;
+      transition: color .15s ease;
+    }
+    footer a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -349,8 +412,16 @@
         </p>
 
         <div class="cta-row">
-          <a class="btn btn-primary" href="https://forms.gle/sNi2ApBKGZZ261dPA" target="_blank" rel="noopener">Production Survey</a>
-          <a class="btn btn-secondary" href="MAKER_SURVEY_URL" target="_blank" rel="noopener">Maker Survey</a>
+          <a class="btn btn-primary" 
+             href="https://forms.gle/sNi2ApBKGZZ261dPA" 
+             target="_blank" 
+             rel="noopener"
+             aria-label="Take the production survey - opens in new tab">
+            Production Survey
+          </a>
+          <a class="btn btn-secondary" href="MAKER_SURVEY_URL" target="_blank" rel="noopener">
+            Maker Survey →
+          </a>
         </div>
 
         <p class="mini">
@@ -360,8 +431,8 @@
 
       <aside class="card hero-side">
         <div class="stat">
-          <h3>What we’re testing</h3>
-          <p>How often local support is needed on tour, what’s hardest about finding it, and which cities are best for a pilot.</p>
+          <h3>What we're testing</h3>
+          <p>How often local support is needed on tour, what's hardest about finding it, and which cities are best for a pilot.</p>
           <span class="pill">3–4 minute survey</span>
         </div>
         <div class="stat">
@@ -369,7 +440,7 @@
           <p>Shipping delays + missing local contacts can turn small issues into show-critical problems.</p>
         </div>
         <div class="stat">
-          <h3>Who it’s for</h3>
+          <h3>Who it's for</h3>
           <p><strong>Productions:</strong> touring + regional teams.<br/><strong>Makers:</strong> wardrobe, costume, wigs, accessories, fabrication.</p>
         </div>
       </aside>
@@ -379,7 +450,7 @@
       <div class="grid">
         <div class="feature">
           <div class="title"><span class="icon">⚡</span>Urgent-ready</div>
-          <p>Quick response + clear scope so “we need help tonight” becomes manageable.</p>
+          <p>Quick response + clear scope so "we need help tonight" becomes manageable.</p>
         </div>
         <div class="feature">
           <div class="title"><span class="icon">🧵</span>Skill-specific</div>
